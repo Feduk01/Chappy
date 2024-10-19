@@ -18,5 +18,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["backendSrc"]
+  "include": ["backendSrc/**/*.ts"],
+  "exclude": ["node_modules"]
 }

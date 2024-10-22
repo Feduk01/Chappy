@@ -1,9 +1,9 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
 import Root from './Root'
-import Login from '../componets/Login'
+import LoginPage from '../componets/LoginPage'
 import Main from '../componets/Main'
-import DirectMassanger from '../componets/Dm'
-import Channel from '../componets/Channel'
+import DirectMessagePage from '../componets/DirectMessagePage'
+import ChannelPage from '../componets/ChannelPage'
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <Login />,
+        element: <LoginPage />,
       },
       {
         path: 'main',
@@ -24,11 +24,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'dm',
-        element: <DirectMassanger />,
+        element: <DirectMessagePage />,
       },
       {
         path: 'channel',
-        element: <Channel />,
+        element: <ChannelPage />,
       },
     ],
   },

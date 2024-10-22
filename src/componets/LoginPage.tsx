@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   return (
     <div className="page-container">
       <form action="" className="login-container">
@@ -22,4 +22,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login
+export default LoginPage

@@ -1,12 +1,12 @@
 import React from 'react'
-import DirectMassanger from './Dm'
-import Channel from './Channel'
+import DirectMessagePage from './DirectMessagePage'
+import ChannelPage from './ChannelPage'
 
 const Main: React.FC = () => {
   return (
     <div>
-      <DirectMassanger />
-      <Channel />
+      <DirectMessagePage />
+      <ChannelPage />
     </div>
   )
 }

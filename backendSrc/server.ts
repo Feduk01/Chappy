@@ -14,9 +14,9 @@ app.use('/', (req: Request, __: Response, next: NextFunction) => {
   next()
 })
 
-app.use('/users', usersRouter)
-app.use('/messages', messagesRouter)
-app.use('/channels', channelsRouter)
+app.use('/api/users', usersRouter)
+app.use('/api/messages', messagesRouter)
+app.use('/api/channels', channelsRouter)
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`)

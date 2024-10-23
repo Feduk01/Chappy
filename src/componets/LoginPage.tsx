@@ -1,22 +1,24 @@
 import React from 'react'
+import '../style/login.css'
 
 const LoginPage: React.FC = () => {
   return (
     <div className="page-container">
       <form action="" className="login-container">
-        <label>
-          Username:
+        <h2>Chappy</h2>
+        <label className="label-username">
+          Username
           <input type="text" />
         </label>
-        <label>
-          Password:
+        <label className="label-password">
+          Password
           <input type="password" />
         </label>
         <div className="button-container">
           <button>Login</button>
           <button>Register</button>
-          <button>Continue as guest</button>
         </div>
+        <button className="guest-button">Continue as guest</button>
       </form>
     </div>
   )

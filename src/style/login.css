@@ -1,0 +1,47 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(100% - 30px);
+  margin-inline: auto;
+  height: 100%;
+  border-radius: 1em;
+  padding: 3em;
+}
+
+.label-username,
+.label-password,
+.button-container {
+  padding: 2em;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.button-container button {
+  flex: 1;
+  margin: 0 0.5em;
+  padding: 0.5em;
+}
+
+.guest-button {
+  width: 15em;
+}
+
+input {
+  padding: 0.5em;
+  margin-top: 0.6em;
+}

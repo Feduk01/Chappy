@@ -1,40 +1,42 @@
 // backendSrc/routes/auth.ts
 import express, { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
-import { connectToDb } from '../database/db'
-import { User } from '../models/user'
-import { ObjectId } from 'mongodb'
+import { connectToDb } from '../database/db.js'
+import { User } from '../models/user.js'
 
-const router = express.Router()
-const JWT_SECRET = process.env.JWT_SECRET as string // Добавь JWT_SECRET в .env
-
-// Маршрут для входа
+export const router = express.Router()
+const JWT_SECRET = process.env.JWT_SECRET as string
 router.post('/login', async (req: Request, res: Response) => {
   const { username, password } = req.body
 
   try {
     const db = await connectToDb()
-    const usersCollection = db.collection<User>('users') // Типизируем коллекцию пользователей
+    const usersCollection = db.collection<User>('Users')
 
-    // Поиск пользователя по имени пользователя
     const user = await usersCollection.findOne({ username })
+    console.log('db connection')
+
     if (!user) {
+      console.log('could not find user')
       res.status(401)
       return
     }
 
-    // Проверка пароля
-    if (user.password !== password) {
+    if (!user || user.password !== password) {
+      console.log('user data wrong')
+
       res.status(401)
       return
     }
 
-    // Создание JWT-токена, если пользователь найден и пароль совпадает
+    console.log('on its way to create token')
+
     const token = jwt.sign(
-      { id: user._id.toString(), username: user.username }, // Сохраняем id как строку для токена
+      { id: user._id.toString(), username: user.username },
       JWT_SECRET,
       { expiresIn: '1h' }
     )
+    console.log('on its way to send token')
 
     res.json({ token })
   } catch (error) {

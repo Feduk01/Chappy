@@ -1,4 +1,6 @@
 import express, { Express, NextFunction, Request, Response } from 'express'
+import { router as authRouter } from './routes/auth.js'
+import { authenticateToken } from './routes/authMiddleware.js'
 import { router as usersRouter } from './routes/users.js'
 import { router as messagesRouter } from './routes/messages.js'
 import { router as channelsRouter } from './routes/channels.js'
@@ -14,9 +16,11 @@ app.use('/', (req: Request, __: Response, next: NextFunction) => {
   next()
 })
 
-app.use('/api/users', usersRouter)
-app.use('/api/messages', messagesRouter)
-app.use('/api/channels', channelsRouter)
+app.use('/auth', authRouter)
+
+app.use('/api/users', authenticateToken, usersRouter)
+app.use('/api/messages', authenticateToken, messagesRouter)
+app.use('/api/channels', authenticateToken, channelsRouter)
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`)

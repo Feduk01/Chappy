@@ -1,14 +1,40 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import {Channel} from '../../../backendSrc/models/channel'
 
 const ChannelPage: React.FC = () => {
+
+  const [channels, setChannels] = useState<Channel[]>([])
+
+  useEffect(() => {
+    const fetchChannels = async () => {
+      try{
+        const response = await fetch('/api/channels',{
+          headers: {
+            'Authorization':`Bearer ${localStorage.getItem('token')}`
+          }
+        })
+        if(!response.ok){
+          throw new Error ('Failed to fetch channels')
+        }
+        const data = await response.json()
+        setChannels(data)
+      } catch(error){
+console.log('Error is: ', error);
+
+      }
+    }
+    fetchChannels()
+  }, [])
+
   return (
     <div className="channel-container">
       <h3> Channels</h3>
               <ul className="channel-list">
-                <li className="channel-list-item">Secret Channel</li>
-                <li className="channel-list-item">Tech Channel</li>
-                <li className="channel-list-item">Cs Channel</li>
-                <li className="channel-list-item">Dota Channel</li>
+                {channels.map(channel => (
+
+                <li key={channel.name} className="channel-list-item">{channel.name} {channel.isPrivate ? false : true}                  
+                </li>
+                ))}
               </ul>
             </div>
   )

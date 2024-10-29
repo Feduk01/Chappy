@@ -1,11 +1,8 @@
 .main-page-container{
-padding: 2em 8em 0;
+padding: 2em 2em 0;
 }
 
-.main-container{
-    border: 1px solid white ;
-    border-radius: 1em;
-}
+
 
 .header-container{
 display: flex;

@@ -27,23 +27,27 @@ a:hover {
   color: #535bf2;
 }
 
-body {
+html, body, #root {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .app {
   width: 90%; /* Используем процентную ширину для адаптивности */
   max-width: 800px; /* Максимальная ширина */
   min-width: 300px;
-  height: 600px;
+  height: 100%;
   border: 2px solid #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
 }
 
 h1 {

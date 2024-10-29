@@ -28,14 +28,34 @@ a:hover {
 }
 
 body {
-  min-width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
+}
+
+.app {
+  width: 90%; /* Используем процентную ширину для адаптивности */
+  max-width: 800px; /* Максимальная ширина */
+  min-width: 300px;
+  height: 600px;
+  border: 2px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
+ul{
+  list-style-type: none
+}
+
+
 
 button {
   border-radius: 8px;

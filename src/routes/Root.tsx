@@ -1,4 +1,3 @@
-// src/routes/Root.tsx
 import { Outlet } from 'react-router-dom'
 
 const Root: React.FC = () => {

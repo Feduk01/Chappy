@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
 import '../style/login.css'
 
 const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -17,6 +20,7 @@ const LoginPage: React.FC = () => {
       if (response.ok && data.token) {
         localStorage.setItem('token', data.token)
         console.log('Login successful')
+        navigate('/main')
       } else {
         console.log('Login failed')
       }
@@ -26,7 +30,7 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="page-container">
+    <div className="login-page-container">
       <form onSubmit={handleLogin} className="login-container">
         <h2>Chappy</h2>
         <label className="label-username">

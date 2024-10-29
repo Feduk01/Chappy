@@ -1,0 +1,81 @@
+.main-page-container{
+padding: 2em 8em 0;
+}
+
+.main-container{
+    border: 1px solid white ;
+    border-radius: 1em;
+}
+
+.header-container{
+display: flex;
+justify-content: space-evenly;
+padding: 2em 0;
+}
+
+.profile-container{
+    display: flex;
+}
+
+.profile-name{
+    align-self: center;
+    border: 1px solid white ;
+    border-radius:  8px;
+    padding: 0.5em 0.9em;
+    margin-right: 0.8em;
+}
+
+.main-content{
+    display: flex;
+    justify-content: space-evenly ;
+    padding: 5em 0;
+}
+
+.dm-list-item, .channel-list-item{
+    padding: 1em 0;
+}
+
+
+
+
+@media (max-width: 850px) {
+    .header-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+    .profile-container{
+        margin-top: 1em;
+    }    
+}
+
+@media (max-width: 530px){
+    .profile-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .logout-button{
+        margin-top: 0.5em;
+        width: 5.5em;
+    }
+
+    .profile-name{
+        width: 5.5em;
+        font-size: 0.9em;
+        overflow-wrap: break-word;
+        margin-right: 0em;
+        text-align: center;
+    }
+
+    .main-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dm-list{
+        flex-direction: column;
+        align-items: center;
+    }
+}

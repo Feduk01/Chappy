@@ -1,12 +1,32 @@
 import React from 'react'
-import DirectMessagePage from './DirectMessagePage'
-import ChannelPage from './ChannelPage'
+import DirectMessagePage from './DM/DirectMessagePage'
+import ChannelPage from './Channels/ChannelPage'
+import '../style/main.css'
+
 
 const Main: React.FC = () => {
   return (
     <div>
-      <DirectMessagePage />
+
+      <div className="main-page-container">
+        <main className="main-container">
+          <header className="header-container">
+            <h2>Chappy</h2>
+            <div className="profile-container">
+              <div className="profile-name">alice_wonder</div>
+              <button className="logout-button">Logout</button>
+            </div>
+          </header>
+          <div className="main-content">
+
+          <DirectMessagePage />
       <ChannelPage />
+          </div>
+        </main>
+      </div>
+
+
+      
     </div>
   )
 }

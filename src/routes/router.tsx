@@ -2,8 +2,10 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import Root from './Root'
 import LoginPage from '../componets/LoginPage'
 import Main from '../componets/Main'
-import DirectMessagePage from '../componets/DirectMessagePage'
-import ChannelPage from '../componets/ChannelPage'
+import DirectMessagePage from '../componets/DM/DirectMessagePage'
+import ChannelPage from '../componets/Channels/ChannelPage'
+import DirectMessageChat from '../componets/DM/DirectMessageChat'
+import ChannelChat from '../componets/Channels/ChannelChat'
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
         path: 'channel',
         element: <ChannelPage />,
       },
+      {
+        path: 'channel-chat',
+        element: <ChannelChat/>
+      },
+      {
+        path: 'dm-chat',
+        element: <DirectMessageChat/>
+      }
     ],
   },
 ])

@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import {Channel} from '../../../backendSrc/models/channel'
+import { useUserStore } from '../../stores/login'
+
 
 const ChannelPage: React.FC = () => {
-
   const [channels, setChannels] = useState<Channel[]>([])
+  const {isGuest} = useUserStore()
 
   useEffect(() => {
     const fetchChannels = async () => {
       try{
-        const response = await fetch('/api/channels',{
+        const response = await fetch(isGuest ? '/api/channels?guest=true':'/api/channels',{
           headers: {
             'Authorization':`Bearer ${localStorage.getItem('token')}`
           }

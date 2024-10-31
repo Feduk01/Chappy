@@ -9,3 +9,10 @@ export const getChannels = async (): Promise<WithId<Channel>[]> => {
   const result: WithId<Channel>[] = await col.find({}).toArray()
   return result
 }
+
+export const getOpenChannels = async (): Promise<WithId<Channel>[]> => {
+  const db: Db = await connectToDb()
+  const col: Collection<Channel> = db.collection<Channel>('Channels')
+  const result: WithId<Channel>[] = await col.find({isPrivate: false}).toArray()
+  return result
+}

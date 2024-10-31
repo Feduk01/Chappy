@@ -7,14 +7,13 @@ import { useUserStore } from '../stores/login'
 
 
 const Main: React.FC = () => {
-  const { username, logout } = useUserStore();
+  const { username, logout, isGuest } = useUserStore();
   const navigate = useNavigate()
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     logout();
     navigate('/login')
-
   };
 
   return (
@@ -25,7 +24,7 @@ const Main: React.FC = () => {
           <header className="header-container">
             <h2>Chappy</h2>
             <div className="profile-container">
-              <div className="profile-name">{username}</div>
+              <div className="profile-name">{isGuest ? 'Guest': username}</div>
               <button onClick= {handleLogout}className="logout-button">Logout</button>
             </div>
           </header>

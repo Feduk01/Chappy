@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
-  const {login} = useUserStore()
+  const {login, loginAsGuest} = useUserStore()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -30,6 +30,11 @@ const LoginPage: React.FC = () => {
     } catch (error) {
       console.log('Error:', error)
     }
+  }
+
+  const handleLoginGuest = () => {
+    loginAsGuest()
+    navigate('/main')
   }
 
   return (
@@ -56,7 +61,7 @@ const LoginPage: React.FC = () => {
           <button type="submit">Login</button>
           <button type="button">Register</button>
         </div>
-        <button type="button" className="guest-button">
+        <button onClick={handleLoginGuest} type="button" className="guest-button">
           Continue as guest
         </button>
       </form>

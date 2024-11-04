@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { useUserStore } from '../stores/login';
+import { useNavigate } from 'react-router-dom'
+import { useUserStore } from '../stores/login'
 
 import '../style/login.css'
 
@@ -8,7 +8,7 @@ const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
-  const {login, loginAsGuest} = useUserStore()
+  const { login, loginAsGuest } = useUserStore()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -19,10 +19,14 @@ const LoginPage: React.FC = () => {
         body: JSON.stringify({ username, password }),
       })
       const data = await response.json()
-      if (response.ok && data.token) {
+      console.log('Response data:', data)
+
+      if (response.ok && data.token && data.userId) {
         localStorage.setItem('token', data.token)
-        login(username)
+        localStorage.setItem('currentUserId', data.userId)
+        login(username, data.userId)
         console.log('Login successful')
+
         navigate('/main')
       } else {
         console.log('Login failed')
@@ -38,34 +42,32 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    
-      <form onSubmit={handleLogin} className="login-container">
-        <h2>Chappy</h2>
-        <label className="label-username">
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <label className="label-password">
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <div className="button-container">
-          <button type="submit">Login</button>
-          <button type="button">Register</button>
-        </div>
-        <button onClick={handleLoginGuest} type="button" className="guest-button">
-          Continue as guest
-        </button>
-      </form>
-    
+    <form onSubmit={handleLogin} className="login-container">
+      <h2>Chappy</h2>
+      <label className="label-username">
+        Username
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </label>
+      <label className="label-password">
+        Password
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </label>
+      <div className="button-container">
+        <button type="submit">Login</button>
+        <button type="button">Register</button>
+      </div>
+      <button onClick={handleLoginGuest} type="button" className="guest-button">
+        Continue as guest
+      </button>
+    </form>
   )
 }
 

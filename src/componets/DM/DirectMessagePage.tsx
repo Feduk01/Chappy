@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { User } from '../../../backendSrc/models/user'
+import React, { useEffect } from 'react'
 import { useUserStore } from '../../stores/login'
-import { useNavigate } from 'react-router-dom';
-import { ObjectId } from 'mongodb';
-
+import { useNavigate } from 'react-router-dom'
+import { ObjectId } from 'mongodb'
 
 const DirectMessagePage: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([])
-  const isGuest = useUserStore((state) => state.isGuest);
+  const isGuest = useUserStore((state) => state.isGuest)
+  const setUsers = useUserStore((state) => state.setUsers)
+  const users = useUserStore((state) => state.users)
+
   const navigate = useNavigate()
 
-  const handleDirectMessage = (userId:ObjectId) => {
+  const handleDirectMessage = (userId: ObjectId) => {
     navigate(`/dm-chat/${userId.toString()}`)
   }
 
-
-  if(isGuest){
-    return null
-  } else {
-
-    useEffect(() => {
+  useEffect(() => {
+    console.log('UseEffect users:')
+    if (!isGuest && users.length === 0) {
       const fetchUsers = async () => {
         try {
           const response = await fetch('/api/users', {
@@ -28,7 +25,7 @@ const DirectMessagePage: React.FC = () => {
             },
           })
           if (!response.ok) {
-            throw new Error('Failed to fetch channels')
+            throw new Error('Failed to fetch users')
           }
           const data = await response.json()
           setUsers(data)
@@ -37,15 +34,24 @@ const DirectMessagePage: React.FC = () => {
         }
       }
       fetchUsers()
-    }, [])
+    }
+  }, [isGuest, setUsers])
+
+  if (isGuest) {
+    return null
   }
+  console.log('JSX')
 
   return (
     <div className="dm-container">
       <h3>Direct Messages</h3>
       <ul className="dm-list">
         {users.map((user) => (
-          <li onClick={() => handleDirectMessage(user._id)} key={user.username} className="dm-list-item">
+          <li
+            onClick={() => handleDirectMessage(user._id)}
+            key={user._id.toString()}
+            className="dm-list-item"
+          >
             {user.username}
           </li>
         ))}

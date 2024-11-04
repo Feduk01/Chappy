@@ -13,7 +13,7 @@
   flex-direction: column;
   align-items: start;
   width: 100%;
-  margin-left: 1.5em;
+  margin-left: 5em;
 }
 
 .dm-chat-message {
@@ -24,6 +24,22 @@
 
 .dm-chat-message-container {
   margin-bottom: 1em;
+}
+.dm-chat-message-container.received {
+  align-self: flex-start;
+  background-color: #923434; /* Цвет для полученных сообщений */
+  margin-right: auto;
+}
+
+.dm-chat-message-container.sent {
+  align-self: flex-end;
+  background-color: #4c8069; /* Цвет для отправленных сообщений */
+  margin-left: auto;
+}
+
+.dm-chat-message {
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
 }
 .dm-chat-input-container {
   width: 70%;

@@ -38,7 +38,7 @@ router.post('/login', async (req: Request, res: Response) => {
     )
     console.log('on its way to send token')
 
-    res.json({ token })
+    res.json({ token, userId: user._id.toString() })
   } catch (error) {
     res.status(500)
     return

@@ -5,9 +5,11 @@ interface JwtPayload {
   id: string
   username: string
 }
-
+interface AuthenticatedRequest extends Request {
+  user?: JwtPayload
+}
 export const authenticateToken = (
-  req: Request,
+  req: AuthenticatedRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -21,8 +23,8 @@ export const authenticateToken = (
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET as string
-    ) as JwtPayload
-    ;(req as any).user = decoded
+    ) as JwtPayload;
+    req.user = decoded
     next()
   } catch (error) {
     res.status(403).json({ message: 'Invalid token' })

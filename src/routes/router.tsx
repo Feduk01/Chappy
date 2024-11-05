@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
         element: <ChannelPage />,
       },
       {
-        path: 'channel-chat',
+        path: 'channel-chat/:channelId',
         element: <ChannelChat/>
       },
       {

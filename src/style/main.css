@@ -40,10 +40,15 @@ padding: 2em 0;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 2em 0 0 0;
         }
     .profile-container{
         margin-top: 1em;
     }    
+
+    .main-content{
+        padding: 3.5em 0 5em 0;
+    }
 }
 
 @media (max-width: 530px){
@@ -70,6 +75,20 @@ padding: 2em 0;
         flex-direction: column;
         align-items: center;
     }
+
+    .main-content > *{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dm-container h3, .channel-container h3{
+        padding: 2em 0;
+    }
+    .dm-container h3{
+        padding: 0 0 2em 0;
+    }
+    
 
     .dm-list{
         flex-direction: column;

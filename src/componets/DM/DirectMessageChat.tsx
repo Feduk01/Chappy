@@ -14,7 +14,7 @@ const DirectMessageChat: React.FC = () => {
     map[user._id.toString()] = user.username
     return map
   }, {} as { [key: string]: string })
-
+  const chatWithUsername = userId ? userMap[userId] : "Unknown user"
   useEffect(() => {
     const fetchDmChat = async () => {
       try {
@@ -42,7 +42,7 @@ const DirectMessageChat: React.FC = () => {
   return (
     <div className="dm-chat-container">
       <header className="dm-chat-header">
-        <h2 className="dm-chat-header-rubric">Chat with user ...</h2>
+        <h2 className="dm-chat-header-rubric">Chat with {chatWithUsername}</h2>
       </header>
 
       <main className="dm-chat-main">

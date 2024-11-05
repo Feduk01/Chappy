@@ -1,8 +1,8 @@
 import express, { Request, Response, Router } from 'express'
-import { WithId } from 'mongodb'
+import { ObjectId, WithId } from 'mongodb'
 import { Channel } from '../models/channel.js'
 import { getChannels,getOpenChannels } from '../database/channels.js'
-
+import {getChannelConversation} from '../database/messages.js'
 export const router: Router = express.Router()
 
 router.get('/', async (req: Request, res: Response<WithId<Channel>[]>) => {
@@ -20,3 +20,14 @@ router.get('/', async (req: Request, res: Response<WithId<Channel>[]>) => {
     res.status(500).send(error);
   }
 });
+
+router.get('/:channelId/messages', async (req: Request, res: Response) => {
+  try{
+    const channelId = new ObjectId(req.params.channelId)
+    const messages = await getChannelConversation(channelId)
+    res.json(messages)
+  } catch(error) {
+    console.log('Error fetching channel messages:', error);
+    res.sendStatus(500).json({message: 'Failed to fetch messages in channel chat'})
+  }
+})

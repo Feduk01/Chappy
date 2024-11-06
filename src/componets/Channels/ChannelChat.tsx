@@ -12,6 +12,7 @@ const ChannelChat: React.FC = () => {
   const users = useUserStore((state) => state.users)
   const channels = useChannelStore((state) => state.channels)
   const isGuest = useUserStore((state) => state.isGuest)
+  const setUsers = useUserStore((state) => state.setUsers)
 
   const userMap = users.reduce((map: { [key: string]: string }, user) => {
     map[user._id.toString()] = user.username
@@ -49,6 +50,30 @@ const ChannelChat: React.FC = () => {
     }
     fetchChannelMessages()
   }, [channelId, currentUserId])
+
+  useEffect(() => {
+    console.log('UseEffect users: ChannelPage')
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/api/users', {
+          headers: isGuest
+            ? {}
+            : {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+        })
+        if (!response.ok) {
+          throw new Error('Failed to fetch users')
+        }
+        const data = await response.json()
+        setUsers(data)
+        console.log(data)
+      } catch (error) {
+        console.log('Error is: ', error)
+      }
+    }
+    fetchUsers()
+  }, [isGuest, setUsers])
 
   return (
     <div className="channel-chat-container">

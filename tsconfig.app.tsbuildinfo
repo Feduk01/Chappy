@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts"],"version":"5.6.3"}
+{"root":["./src/main.tsx","./src/vite-env.d.ts","./src/componets/loginpage.tsx","./src/componets/main.tsx","./src/componets/channels/channelchat.tsx","./src/componets/channels/channelpage.tsx","./src/componets/dm/directmessagechat.tsx","./src/componets/dm/directmessagepage.tsx","./src/routes/root.tsx","./src/routes/router.tsx","./src/stores/channels.ts","./src/stores/login.ts"],"version":"5.6.3"}

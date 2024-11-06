@@ -8,13 +8,15 @@ const DirectMessageChat: React.FC = () => {
   const [messageList, setMessageList] = useState<Message[]>([])
   const { userId } = useParams<{ userId: string }>()
   const currentUserId = localStorage.getItem('currentUserId')
-  const users = useUserStore((state) => state.users) // получаем пользователей из Store
+  const users = useUserStore((state) => state.users)
 
   const userMap = users.reduce((map: { [key: string]: string }, user) => {
     map[user._id.toString()] = user.username
     return map
   }, {} as { [key: string]: string })
-  const chatWithUsername = userId ? userMap[userId] : "Unknown user"
+
+  const chatWithUsername = userId ? userMap[userId] : 'Unknown user'
+
   useEffect(() => {
     const fetchDmChat = async () => {
       try {

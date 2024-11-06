@@ -3,25 +3,40 @@ import '../../style/channel.css'
 import { useParams } from 'react-router-dom'
 import { Message } from '../../../backendSrc/models/message'
 import { useUserStore } from '../../stores/login'
+import { useChannelStore } from '../../stores/channels'
 
 const ChannelChat: React.FC = () => {
   const [messageList, setMessageList] = useState<Message[]>([])
   const { channelId } = useParams<{ channelId: string }>()
   const currentUserId = localStorage.getItem('currentUserId')
   const users = useUserStore((state) => state.users)
+  const channels = useChannelStore((state) => state.channels)
+  const isGuest = useUserStore((state) => state.isGuest)
 
   const userMap = users.reduce((map: { [key: string]: string }, user) => {
     map[user._id.toString()] = user.username
     return map
   }, {})
 
+  const channelMap = channels.reduce(
+    (map: { [key: string]: string }, channel) => {
+      map[channel._id.toString()] = channel.name
+      return map
+    },
+    {}
+  )
+
+  const channelName = channelId ? channelMap[channelId] : 'Unknown channel'
+
   useEffect(() => {
     const fetchChannelMessages = async () => {
       try {
         const response = await fetch(`/api/channels/${channelId}/messages`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
+          headers: isGuest
+            ? {}
+            : {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
         })
         if (!response.ok) {
           throw new Error('Failed to fetch channel messages')
@@ -38,7 +53,9 @@ const ChannelChat: React.FC = () => {
   return (
     <div className="channel-chat-container">
       <header className="channel-chat-header">
-        <h2 className="channel-chat-header-rubric">Channel Chat</h2>
+        <h2 className="channel-chat-header-rubric">
+          Welcome to {channelName} Channel
+        </h2>
       </header>
 
       <main className="channel-chat-main">

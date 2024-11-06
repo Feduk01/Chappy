@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { Channel } from '../../../backendSrc/models/channel'
+import React, { useEffect } from 'react'
 import { useUserStore } from '../../stores/login'
 import { useNavigate } from 'react-router-dom'
 import { ObjectId } from 'mongodb'
-
+import { useChannelStore } from '../../stores/channels'
 
 const ChannelPage: React.FC = () => {
-  const [channels, setChannels] = useState<Channel[]>([])
+  const setChannels = useChannelStore((state) => state.setChannels)
+  const channels = useChannelStore((state) => state.channels)
   const { isGuest } = useUserStore()
 
   const navigate = useNavigate()
@@ -43,7 +43,11 @@ const ChannelPage: React.FC = () => {
       <h3> Channels</h3>
       <ul className="channel-list">
         {channels.map((channel) => (
-          <li onClick={() => handleChannel(channel._id)} key={channel._id.toString()} className="channel-list-item">
+          <li
+            onClick={() => handleChannel(channel._id)}
+            key={channel._id.toString()}
+            className="channel-list-item"
+          >
             {channel.name} {channel.isPrivate ? false : true}
             {channel.isPrivate ? '🔒' : '🔓'}
           </li>

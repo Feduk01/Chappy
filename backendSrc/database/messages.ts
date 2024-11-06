@@ -29,10 +29,11 @@ export async function getConversation(
   return result
 }
 
-
-export const getChannelConversation = async (channelId: ObjectId): Promise <WithId<Message>[]> => {
+export const getChannelConversation = async (
+  channelId: ObjectId
+): Promise<WithId<Message>[]> => {
   const db: Db = await connectToDb()
   const col: Collection<Message> = db.collection<Message>('Messages')
-  const result: WithId<Message>[] = await col.find({channelId}).toArray()
+  const result: WithId<Message>[] = await col.find({ channelId }).toArray()
   return result
 }

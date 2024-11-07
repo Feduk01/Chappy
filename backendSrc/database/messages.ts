@@ -1,6 +1,6 @@
-import { Collection, Db, WithId, ObjectId } from 'mongodb'
+import { Collection, Db, WithId, ObjectId, InsertOneResult } from 'mongodb'
 
-import { Message } from '../models/message.js'
+import { Message, NewMessage } from '../models/message.js'
 import { connectToDb } from './db.js'
 
 export const getMessages = async (): Promise<WithId<Message>[]> => {
@@ -36,4 +36,29 @@ export const getChannelConversation = async (
   const col: Collection<Message> = db.collection<Message>('Messages')
   const result: WithId<Message>[] = await col.find({ channelId }).toArray()
   return result
+}
+
+export const sendNewMessage = async (
+  content: string,
+  senderId: ObjectId,
+  isDirectMessage: boolean,
+  recipientId?: ObjectId,
+  channelId?: ObjectId
+): Promise<ObjectId | null> => {
+  try {
+    const db: Db = await connectToDb()
+    const col: Collection<NewMessage> = db.collection('Messages')
+    const message = {
+      content,
+      senderId,
+      ...(isDirectMessage && recipientId ? { recipientId } : {}),
+      ...(!isDirectMessage && channelId ? { channelId } : {}),
+      isDirectMessage,
+    }
+    const result: InsertOneResult<NewMessage> = await col.insertOne(message)
+    return result.insertedId
+  } catch (error) {
+    console.error('Error inserting message:', error)
+    return null
+  }
 }

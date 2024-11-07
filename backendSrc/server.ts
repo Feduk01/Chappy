@@ -10,7 +10,7 @@ const port: number = Number(process.env.PORT || 2345)
 const app: Express = express()
 
 app.use('/', express.static('dist'))
-app.use('/', express.json())
+app.use(express.json())
 app.use(cors())
 
 app.use('/', (req: Request, __: Response, next: NextFunction) => {

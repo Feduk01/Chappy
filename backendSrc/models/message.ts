@@ -8,3 +8,11 @@ export interface Message {
   channelId?: ObjectId
   isDirectMessage: boolean
 }
+
+export interface NewMessage {
+  content: string
+  senderId: ObjectId
+  recipientId?: ObjectId
+  channelId?: ObjectId
+  isDirectMessage: boolean
+}

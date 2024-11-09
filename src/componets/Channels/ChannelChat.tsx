@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import '../../style/channel.css'
 import { useParams } from 'react-router-dom'
-import { Message } from '../../../backendSrc/models/message'
+import { Message } from '../../stores/messages'
 import { useUserStore } from '../../stores/login'
 import { useChannelStore } from '../../stores/channels'
 import { useMessageStore } from '../../stores/messages'
@@ -10,7 +10,7 @@ const ChannelChat: React.FC = () => {
   const [messageList, setMessageList] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState('')
   const { channelId } = useParams<{ channelId: string }>()
-  const currentUserId = localStorage.getItem('currentUserId')
+  const currentUserId = localStorage.getItem('currentUserId') || 'guest'
   const users = useUserStore((state) => state.users)
   const channels = useChannelStore((state) => state.channels)
   const isGuest = useUserStore((state) => state.isGuest)
@@ -55,7 +55,6 @@ const ChannelChat: React.FC = () => {
   }, [channelId, currentUserId])
 
   useEffect(() => {
-    console.log('UseEffect users: ChannelPage')
     const fetchUsers = async () => {
       try {
         const response = await fetch('/api/users', {
@@ -70,9 +69,8 @@ const ChannelChat: React.FC = () => {
         }
         const data = await response.json()
         setUsers(data)
-        console.log(data)
       } catch (error) {
-        console.log('Error is: ', error)
+        console.error('Error is:', error)
       }
     }
     fetchUsers()
@@ -84,7 +82,7 @@ const ChannelChat: React.FC = () => {
 
     const messageData = {
       content: newMessage,
-      senderId: currentUserId || 'guest',
+      senderId: currentUserId,
       channelId: channelId || '',
       isDirectMessage: false,
     }
@@ -104,7 +102,7 @@ const ChannelChat: React.FC = () => {
       }
 
       const { messageId } = await response.json()
-      const message: Message = { _id: messageId.toString(), ...messageData }
+      const message: Message = { _id: messageId, ...messageData }
       addMessage(message)
       setMessageList((prev: Message[]) => [...prev, message])
       setNewMessage('')
@@ -125,18 +123,14 @@ const ChannelChat: React.FC = () => {
         <ul className="channel-chat-conversation">
           {messageList.map((message) => (
             <li
-              key={message._id.toString()}
+              key={message._id}
               className={`channel-chat-message-container ${
-                message.senderId.toString() === currentUserId
-                  ? 'sent'
-                  : 'received'
+                message.senderId === currentUserId ? 'sent' : 'received'
               }`}
             >
               <h3 className="channel-chat-message-username">
-                {userMap[message.senderId.toString()] ||
-                  (message.senderId.toString() === 'guest' || !currentUserId
-                    ? 'Guest'
-                    : 'Unknown User')}
+                {userMap[message.senderId] ||
+                  (message.senderId === 'guest' ? 'Guest' : 'Unknown User')}
               </h3>
               <p className="channel-chat-message">{message.content}</p>
             </li>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import '../../style/dm.css'
 import { useParams } from 'react-router-dom'
-import { Message } from '../../../backendSrc/models/message'
+import { Message } from '../../stores/messages'
 import { useUserStore } from '../../stores/login'
 
 const DirectMessageChat: React.FC = () => {

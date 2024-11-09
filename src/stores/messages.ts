@@ -1,12 +1,12 @@
 // import { ObjectId } from 'mongodb'
 import { create } from 'zustand'
 
-interface Message {
-  _id: any
+export interface Message {
+  _id: string
   content: string
-  senderId: any
-  recipientId?: any
-  channelId?: any
+  senderId: string
+  recipientId?: string
+  channelId?: string
   isDirectMessage: boolean
 }
 

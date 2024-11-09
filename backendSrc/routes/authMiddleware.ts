@@ -16,6 +16,7 @@ export const authenticateToken = (
   const token = req.headers.authorization?.split(' ')[1]
   const isGuest = req.query.guest === 'true' || !token
   if (isGuest) {
+    ;(req as any).user = { id: 'guest', username: 'Guest' }
     return next()
   }
 
@@ -23,7 +24,7 @@ export const authenticateToken = (
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET as string
-    ) as JwtPayload;
+    ) as JwtPayload
     req.user = decoded
     next()
   } catch (error) {

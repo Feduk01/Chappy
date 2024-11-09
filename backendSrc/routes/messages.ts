@@ -1,4 +1,4 @@
-import express, { json, Request, Response, Router } from 'express'
+import express, { Request, Response, Router } from 'express'
 import { WithId, ObjectId } from 'mongodb'
 import { Message } from '../models/message.js'
 import {
@@ -34,22 +34,29 @@ router.post('/', async (req: Request, res: Response) => {
   try {
     const { content, senderId, recipientId, channelId, isDirectMessage } =
       req.body
+
+    const finalSenderId =
+      senderId === 'guest' ? 'guest' : new ObjectId(senderId)
+    const finalRecipientId = recipientId ? new ObjectId(recipientId) : undefined
+    const finalChannelId = channelId ? new ObjectId(channelId) : undefined
     if (
       !content ||
-      !senderId ||
+      (!finalSenderId && finalSenderId !== 'guest') ||
       (isDirectMessage && !recipientId) ||
       (!isDirectMessage && !channelId)
     ) {
       res.status(400).json({ message: 'Missing required fields' })
       return
     }
+
     const messageId = await sendNewMessage(
       content,
-      new ObjectId(senderId),
+      finalSenderId,
       isDirectMessage,
-      recipientId ? new ObjectId(recipientId) : undefined,
-      channelId ? new ObjectId(channelId) : undefined
+      finalRecipientId,
+      finalChannelId
     )
+
     if (messageId) {
       res.status(201).json({ messageId })
     } else {

@@ -38,6 +38,7 @@ const LoginPage: React.FC = () => {
 
   const handleLoginGuest = () => {
     loginAsGuest()
+    localStorage.removeItem('currentUserId')
     navigate('/main')
   }
 

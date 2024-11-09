@@ -40,7 +40,7 @@ export const getChannelConversation = async (
 
 export const sendNewMessage = async (
   content: string,
-  senderId: ObjectId,
+  senderId: ObjectId | 'guest',
   isDirectMessage: boolean,
   recipientId?: ObjectId,
   channelId?: ObjectId
@@ -55,7 +55,9 @@ export const sendNewMessage = async (
       ...(!isDirectMessage && channelId ? { channelId } : {}),
       isDirectMessage,
     }
-    const result: InsertOneResult<NewMessage> = await col.insertOne(message)
+    const result: InsertOneResult<NewMessage> = await col.insertOne(
+      message as Message
+    )
     return result.insertedId
   } catch (error) {
     console.error('Error inserting message:', error)

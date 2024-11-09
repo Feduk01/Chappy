@@ -25,7 +25,15 @@ router.get('/:channelId/messages', async (req: Request, res: Response) => {
   try {
     const channelId = new ObjectId(req.params.channelId)
     const messages = await getChannelConversation(channelId)
-    res.json(messages)
+    const response = messages.map((msg) => ({
+      ...msg,
+      _id: msg._id.toString(),
+      senderId: msg.senderId.toString(),
+      ...(msg.channelId && { channelId: msg.channelId.toString() }),
+      ...(msg.recipientId && { recipientId: msg.recipientId.toString() }),
+    }))
+    console.log('Sended messages data:', response)
+    res.json(response)
   } catch (error) {
     console.log('Error fetching channel messages:', error)
     res

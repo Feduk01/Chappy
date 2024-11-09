@@ -34,12 +34,12 @@ export const router = createBrowserRouter([
       },
       {
         path: 'channel-chat/:channelId',
-        element: <ChannelChat/>
+        element: <ChannelChat />,
       },
       {
         path: 'dm-chat/:userId',
-        element: <DirectMessageChat/>
-      }
+        element: <DirectMessageChat />,
+      },
     ],
   },
 ])

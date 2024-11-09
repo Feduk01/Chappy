@@ -1,4 +1,3 @@
-// backendSrc/routes/auth.ts
 import express, { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { connectToDb } from '../database/db.js'

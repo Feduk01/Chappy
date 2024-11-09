@@ -36,6 +36,9 @@
   text-align: start;
 }
 
+.dm-chat-message-container {
+  padding-top: 1em;
+}
 .dm-chat-message-container.received {
   align-self: flex-start;
   margin-left: 1em;
@@ -81,6 +84,7 @@
   background-color: inherit;
   min-width: 0;
   outline: none;
+  margin: 0;
 }
 
 .send-button {

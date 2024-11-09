@@ -20,7 +20,9 @@
   flex-direction: column;
   width: 100%;
 }
-
+.channel-chat-message-container {
+  padding-top: 1em;
+}
 .channel-chat-message-container.received {
   align-self: flex-start;
   margin-left: 1em;
@@ -70,6 +72,7 @@
   background-color: inherit;
   min-width: 0;
   outline: none;
+  margin: 0;
 }
 
 .send-button {

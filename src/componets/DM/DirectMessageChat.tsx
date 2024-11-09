@@ -44,8 +44,8 @@ const DirectMessageChat: React.FC = () => {
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!newMessage.trim()) return // Проверка на пустое сообщение
-    if (!currentUserId || !userId) return // Проверка на наличие ID пользователей
+    if (!newMessage.trim()) return
+    if (!currentUserId || !userId) return
 
     const messageData = {
       content: newMessage,

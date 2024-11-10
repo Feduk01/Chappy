@@ -7,7 +7,12 @@
 
 .dm-chat-header {
   margin-bottom: 2em;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin-bottom: 2em;
 }
+
 .dm-chat-main {
   display: flex;
   flex-direction: column;

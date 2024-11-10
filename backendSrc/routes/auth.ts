@@ -2,10 +2,18 @@ import express, { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { connectToDb } from '../database/db.js'
 import { User } from '../models/user.js'
+import { loginSchema } from '../validation/authSchema.js'
 
 export const router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET as string
 router.post('/login', async (req: Request, res: Response) => {
+  const { error } = loginSchema.validate(req.body)
+  if (error) {
+    res
+      .status(400)
+      .json({ message: 'Invalid login data', details: error.details })
+    return
+  }
   const { username, password } = req.body
 
   try {

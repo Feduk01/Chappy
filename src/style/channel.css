@@ -6,7 +6,18 @@
 }
 
 .channel-chat-header {
+  display: flex;
+  align-items: center;
+  gap: 1em;
   margin-bottom: 2em;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #f8f8f8;
+  font-size: 1em;
+  cursor: pointer;
 }
 
 .channel-chat-main {

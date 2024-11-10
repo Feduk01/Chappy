@@ -3,6 +3,7 @@ import '../../style/dm.css'
 import { useParams } from 'react-router-dom'
 import { Message } from '../../stores/messages'
 import { useUserStore } from '../../stores/login'
+import { useNavigate } from 'react-router-dom'
 
 const DirectMessageChat: React.FC = () => {
   const [messageList, setMessageList] = useState<Message[]>([])
@@ -15,6 +16,11 @@ const DirectMessageChat: React.FC = () => {
     map[user._id.toString()] = user.username
     return map
   }, {} as { [key: string]: string })
+
+  const navigate = useNavigate()
+  const handleBack = () => {
+    navigate(-1)
+  }
 
   const chatWithUsername = userId ? userMap[userId] : 'Unknown user'
 
@@ -81,6 +87,9 @@ const DirectMessageChat: React.FC = () => {
   return (
     <div className="dm-chat-container">
       <header className="dm-chat-header">
+        <button onClick={handleBack} className="back-button">
+          ← Back
+        </button>
         <h2 className="dm-chat-header-rubric">Chat with {chatWithUsername}</h2>
       </header>
 

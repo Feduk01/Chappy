@@ -9,10 +9,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
+  color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -27,7 +26,9 @@ a:hover {
   color: #535bf2;
 }
 
-html, body, #root {
+html,
+body,
+#root {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,14 +39,11 @@ html, body, #root {
 }
 
 .app {
-  width: 90%; /* Используем процентную ширину для адаптивности */
-  max-width: 800px; /* Максимальная ширина */
+  width: 90%;
+  max-width: 800px;
   min-width: 300px;
   height: 100%;
   border: 2px solid #ccc;
-  /*display: flex;
-  align-items: center;
-  justify-content: center;*/
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 1em;
 }
@@ -55,11 +53,19 @@ h1 {
   line-height: 1.1;
 }
 
-ul{
-  list-style-type: none
+ul {
+  list-style-type: none;
 }
 
+li {
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
 
+li:hover {
+  color: #f4bd09;
+  transform: translateX(5px);
+}
 
 button {
   border-radius: 8px;
@@ -79,17 +85,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

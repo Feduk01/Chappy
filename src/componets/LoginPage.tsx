@@ -63,11 +63,14 @@ const LoginPage: React.FC = () => {
       </label>
       <div className="button-container">
         <button type="submit">Login</button>
-        <button type="button">Register</button>
+        <button
+          onClick={handleLoginGuest}
+          type="button"
+          className="guest-button"
+        >
+          Continue as guest
+        </button>
       </div>
-      <button onClick={handleLoginGuest} type="button" className="guest-button">
-        Continue as guest
-      </button>
     </form>
   )
 }

@@ -5,6 +5,7 @@ import { Message } from '../../stores/messages'
 import { useUserStore } from '../../stores/login'
 import { useChannelStore } from '../../stores/channels'
 import { useMessageStore } from '../../stores/messages'
+import { useNavigate } from 'react-router-dom'
 
 const ChannelChat: React.FC = () => {
   const [messageList, setMessageList] = useState<Message[]>([])
@@ -29,6 +30,10 @@ const ChannelChat: React.FC = () => {
     },
     {}
   )
+  const navigate = useNavigate()
+  const handleBack = () => {
+    navigate(-1)
+  }
 
   const channelName = channelId ? channelMap[channelId] : 'Unknown channel'
 
@@ -114,6 +119,9 @@ const ChannelChat: React.FC = () => {
   return (
     <div className="channel-chat-container">
       <header className="channel-chat-header">
+        <button onClick={handleBack} className="back-button">
+          ← Back
+        </button>
         <h2 className="channel-chat-header-rubric">
           Welcome to {channelName} Channel
         </h2>
